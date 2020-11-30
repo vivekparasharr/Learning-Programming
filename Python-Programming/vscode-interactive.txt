@@ -1,0 +1,3 @@
+VS Code: Shift+Enter does not send code to Python Interactive - why?
+If you go to the Settings( Ctrl + , ) you can see the search bar. There, put in 'Send Selection To Interactive Window' or the like, and click the checkbox of 'Python › Data Science: Send Selection To Interactive Window'. After that, you would be able to run certain lines directly in the Interactive Window.
+

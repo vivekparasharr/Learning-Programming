@@ -16,7 +16,7 @@ The default value is "line"
 "line" is for line graphs. (DEFAULT)
 "pie" is for pie charts.
 "scatter" is for scatter plots.
-'''
+''' 
 
 # Scatter diagram
 df = pd.DataFrame({'Unemployment_Rate': [6.1,5.8,5.7,5.7,5.8,5.6,5.5,5.3,5.2,5.2],

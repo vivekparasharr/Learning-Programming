@@ -15,7 +15,7 @@ pd.set_option("display.precision", 2)
 # creating a copy of the dataframe
 df2 = df1.copy()
 
-
+ 
 ##### Importing or creating data
 
 # create artificial data

@@ -209,6 +209,15 @@ df.loc[df['Price'] != 15]
 
 
 
+# String operations
+s.shelter_city.str.upper() # lower, strip, startswith('char'), endswith, get_dummies, len, 
+s.shelter_address.str.split(' ').str[1]
+s2=s.shelter_address.str.split(' ', expand=True) # with expand=True, returns a df, else a list
+s2.iloc[:,1].str.cat(s2.iloc[:,2], sep=', ')
+# col1.str.cat(col2, sep=', ')
+
+
+
 ##### Basic operations with a dataframe
 df=pd.read_csv('P4-Demographic-Data.csv')
 

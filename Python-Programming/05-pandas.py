@@ -5,6 +5,167 @@ Created on Sun Oct 18 19:36:16 2020
 @author: vivek
 """
 
+
+#################################################################################
+################################### summary #####################################
+#################################################################################
+
+
+# \ - can be put at end of line to continue writing code in next line
+
+df.copy()
+
+df.drop_duplicates()
+
+#Initialize DataFrame
+#From list-of-lists: 
+df=pd.DataFrame(list-of-lists, columns =['Name', 'Age']) 
+#From different lists: 
+df=pd.DataFrame(list(zip(l1,l2,..)), columns=[‘c1’,’c2’,..])
+#From np-array: 
+df=pd.DataFrame(data=np-array, index=[‘r1’,’r2’,..], columns=[‘c1’,’c2’,..])
+#From dict: 
+df=pd.DataFrame({‘c1’: [data,data,..],’c2’: [data,data,..],..})
+#From csv: 
+df=pd.read_csv(‘file.csv')
+#From excel: 
+df=pd.read_excel(’file.xlsx')  # pip install xlrd
+
+#Export df
+df.to_csv(‘file.csv', index = False, header=True)
+
+
+.shape, .side, .ndim, .columns, df[‘c1’].value_counts()
+len(df.columns)
+
+.info(), .describe(), .transpose(), .head(), .tail()
+.count(), .mean(skipna=False), .sd(), .min(), .quantile(q=0.25), .max()
+.unique(), .nunique()
+.sum(axis=0) # 1 for row sum
+.value_counts() - 
+
+# Drop a row or col 
+df.drop('another_col',axis=1) # drop col another_col
+df.drop(2, axis=0) # drop row 2
+
+
+#Add a column to df
+df['new_col'] = res
+df['another_col'] = pd.DataFrame(np.arange(0,195))
+air_quality["ratio_paris_antwerp"] = air_quality["station_paris"] / air_quality["station_antwerp"]
+
+#Add a column based on conditions
+# IF condition
+df.loc[df.column_name condition, ‘new column name’] = ‘value if condition is met’
+df.loc[df.set_of_numbers <= 4, 'equal_or_lower_than_4?'] = 'True' 
+df.loc[df.set_of_numbers > 4, 'equal_or_lower_than_4?'] = 'False' 
+
+df.loc[(df.First_name == 'Bill') | (df.First_name == 'Emma'), 'name_match'] = 'Match'  # multiple conditions can be specified using logical operators
+
+# NUMPY way
+np.where(condition, value if condition is true, value if condition is false)
+df['Good'] = np.where(df['points']>20, 'yes', 'no')  # New Column with Binary Values
+
+# Create a New Column Based on Comparison with Existing Column
+df['assist_more'] = np.where(df['assists']>df['rebounds'], 'yes', 'no')
+
+# New Column with Multiple Values using np.select
+# create a list of our conditions
+conditions = [
+    (df['likes_count'] <= 2),
+    (df['likes_count'] > 2) & (df['likes_count'] <= 9),
+    (df['likes_count'] > 9) & (df['likes_count'] <= 15),
+    (df['likes_count'] > 15)
+    ]
+# create a list of the values we want to assign for each condition
+values = ['tier_4', 'tier_3', 'tier_2', 'tier_1']
+# create a new column and use np.select to assign values to it using our lists as arguments
+df['tier'] = np.select(conditions, values)
+
+# New Column with Multiple Values
+def f(row):
+    if row['points'] < 15:
+        val = 'no'
+    elif row['points'] < 25:
+        val = 'maybe'
+    else:
+        val = 'yes'
+    return val
+#create new column 'Good' using the function above
+df['Good'] = df.apply(f, axis=1)
+
+# PANDAS way
+# we don’t have to rely on NumPy to create new column using condition on another column. Instead we can use Panda’s apply function with lambda function.
+df[‘new column name‘] = df[‘df column_name‘].apply(lambda x: ‘value if condition is met’  if x condition else ‘value if condition is not met’)
+
+gapminder['gdpPercap_ind'] = gapminder.gdpPercap.apply(lambda x: 1 if x >= 1000 else 0)
+
+# we can create complex conditionals as well
+gapminder['continent_group'] = gapminder.continent.apply(lambda x: 1 if x in ['Europe','America', 'Oceania'] else 0)
+
+# another example of .apply
+def set_values(row, value):
+    return value[row]
+map_dictionary ={200 : "Low", 300 :"LOW", 400 : "MID",500:"HIGH",600:"HIGH"} 
+df['Salary_Range'] = df['Salary'].apply(set_values, args =(map_dictionary, )) 
+
+DataFrame.apply(self, 
+                func, 
+                axis=0, # axis=1 or axis = 'columns'
+                raw=False, 
+                result_type=None, 
+                args=(), 
+                **kwds)
+
+# another pandas way is to use .map
+map_dictionary ={200 : "Low", 300 :"LOW", 400 : "MID",500:"HIGH",600:"HIGH"} 
+df['Salary_Range'] = df['Salary'].map(map_dictionary) 
+
+
+#Subsetting - data.loc[<row selection>, <column selection>]
+df[‘col-name’] # by col name
+df[[‘col-name’]] 
+
+.loc[ [row-names] , [col-names] ] # by row/col names
+.loc[cond1 & cond2 | cond3 ^ ~(cond4)] 
+
+.iloc[ [row-numbers] , [col-numbers] ] # by row/col numbers
+df.iloc[[0,3], [0,2]] # 1st, 4th row and 1st, 3rd columns
+df.iloc[0:2, 1:4] # first 2 rows and 2nd, 3rd, 4th columns of data frame
+
+#Get specific values in rows/cols
+df.iat[0,0]
+df.at[0,'CountryName'] # incidently row label is an integer in this case so we specify without quotes
+
+
+#String operations
+s.shelter_city.str.upper() # lower, strip, startswith('char'), endswith, get_dummies, len, contains(‘text’)
+s.shelter_address.str.split(' ').str[1]
+s2=s.shelter_address.str.split(' ', expand=True) # with expand=True, returns a df, else a list
+s2.iloc[:,1].str.cat(s2.iloc[:,2], sep=', ')
+# col1.str.cat(col2, sep=', ')
+
+#Numeric operations
+df.c1 + df.c2 # all arithmetic operations possible
+
+
+.groupby([‘c1’,’c2’,..]).sum()[‘c4’] # sum of 4th column
+ .get_group(2014) # we can select a single group
+ .agg(np.mean) # average
+ .agg([np.sum, np.mean, np.std])
+
+df.apply(np.sum, axis=0)  # to columns
+df.apply(np.sum, axis=1) # to rows
+
+
+.shift() Series method
+
+
+#################################################################################
+################################### detailed ####################################
+#################################################################################
+
+
 import numpy as np
 import pandas as pd
 # import seaborn as sns

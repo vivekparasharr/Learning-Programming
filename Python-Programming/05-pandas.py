@@ -10,6 +10,13 @@ Created on Sun Oct 18 19:36:16 2020
 ################################### summary #####################################
 #################################################################################
 
+# type conversion
+# if we have year and we want to convery it from int to category
+df.col1 = df.col1.astype('category')
+# Get unique values in a category
+df.col1.cat.categories
+df.col1.unique()
+
 
 # \ - can be put at end of line to continue writing code in next line
 

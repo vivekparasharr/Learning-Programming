@@ -61,6 +61,9 @@ df['new_col'] = res
 df['another_col'] = pd.DataFrame(np.arange(0,195))
 air_quality["ratio_paris_antwerp"] = air_quality["station_paris"] / air_quality["station_antwerp"]
 
+# query a dataframe
+df_filtered = df.query('a > 1 & b > 1')
+
 #Add a column based on conditions
 # IF condition
 df.loc[df.column_name condition, ‘new column name’] = ‘value if condition is met’

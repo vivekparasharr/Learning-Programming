@@ -10,8 +10,15 @@ Created on Sun Oct 18 19:36:16 2020
 ################################### summary #####################################
 #################################################################################
 
+# get the values of a dataframe (not the column nmaes or row names)
+df.values 
+
+
 # type conversion
 # if we have year and we want to convery it from int to category
+from os import SF_NODISKIO
+
+
 df.col1 = df.col1.astype('category')
 # Get unique values in a category
 df.col1.cat.categories
@@ -169,6 +176,23 @@ df.apply(np.sum, axis=1) # to rows
 
 
 .shift() Series method
+
+
+#################################################################################
+#################################### pivot ######################################
+#################################################################################
+
+import seaborn as sns 
+
+# use seaborn datasets
+sns.get_dataset_names()
+df = sns.load_dataset('titanic')
+df.info
+
+# three ways
+df.pivot_table(index='sex', columns='alive', values='age')
+pd.crosstab(index=df.sex, columns=df.alive, values=df.age, aggfunc='mean', normalize=True) # transforms the values as percentages (by default it is % of total dataset, but we can change it to % of row or column)
+df.groupby(['sex','alive']).mean()['age'].unstack() # unstack grabs outermost index (from sex and alive, it is alive) and moves it to columns
 
 
 #################################################################################

@@ -5,6 +5,9 @@ from matplotlib import pyplot as plt
 # from pylab import *
 # PyLab is a convenience module that bulk imports matplotlib.pyplot (for plotting) and NumPy (for Mathematics and working with arrays) in a single name space. Although many examples use PyLab, it is no longer recommended.
 
+# adjust location of legend on a plot
+legend='best'
+
 x = np.arange(1,11) 
 y = 2 * x + 5 
 plt.title("Matplotlib demo") 

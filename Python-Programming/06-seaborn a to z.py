@@ -5,6 +5,9 @@ Created on Sun Oct 18 21:29:50 2020
 @author: vivek
 """
 
+# adjust location of legend on a plot
+legend='best'
+
 # import numpy as np
 import pandas as pd
 import seaborn as sns

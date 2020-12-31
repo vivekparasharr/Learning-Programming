@@ -119,48 +119,180 @@ print(v1 %in% t)
 
 # Conditional - R provides the following types of decision making statements. 
 # The basic syntax for creating an if statement in R is −
-if(boolean_expression) {
-   // statement(s) will execute if the boolean expression is true.
+if (test_expression) {
+statement
 }
 # Example
-x <- 30L
-if(is.integer(x)) {
-   print("X is an Integer")
+x <- 5
+if(x > 0){
+print("Positive number")
 }
 
 # The basic syntax for creating an if...else statement in R is −
-if(boolean_expression) {
-   // statement(s) will execute if the boolean expression is true.
+if (test_expression) {
+statement1
 } else {
-   // statement(s) will execute if the boolean expression is false.
+statement2
 }
 # Example
-x <- c("what","is","truth")
-if("Truth" %in% x) {
-   print("Truth is found")
+x <- -5
+if(x > 0){
+print("Non-negative number")
 } else {
-   print("Truth is not found")
+print("Negative number")
 }
 
 # The basic syntax for creating an if...else if...else statement in R is −
-if(boolean_expression 1) {
-   // Executes when the boolean expression 1 is true.
-} else if( boolean_expression 2) {
-   // Executes when the boolean expression 2 is true.
-} else if( boolean_expression 3) {
-   // Executes when the boolean expression 3 is true.
+if (test_expression1) {
+statement1
+} else if (test_expression2) {
+statement2
+} else if (test_expression3) {
+statement3
 } else {
-   // executes when none of the above condition is true.
+statement4
 }
 # Example
-x <- c("what","is","truth")
-if("Truth" %in% x) {
-   print("Truth is found the first time")
-} 
-else if ("truth" %in% x) {
-   print("truth is found the second time")
-} 
-else {
-   print("No truth found")
+x <- 0
+if (x < 0) {
+print("Negative number")
+} else if (x > 0) {
+print("Positive number")
+} else
+print("Zero")
+
+# A switch statement allows a variable to be tested for equality against a list of values. Each value is called a case, and the variable being switched on is checked for each case.
+x <- switch(
+   2,
+   "first",
+   "second",
+   "third",
+   "fourth"
+)
+print(x)
+
+
+# R - Loops
+# A loop statement allows us to execute a statement or group of statements multiple times
+
+# The Repeat loop executes the same code again and again until a stop condition is met.
+# Syntax
+repeat { 
+   commands 
+   if(condition) {
+      break
+   }
+}
+# Example
+v <- c("Hello","loop")
+cnt <- 2
+repeat {
+   print(v)
+   cnt <- cnt+1   
+   if(cnt > 5) {
+      break
+   }
 }
 
+# The While loop executes the same code again and again until a stop condition is met.
+# Syntax
+while (test_expression) {
+   statement
+}
+# Example
+v <- c("Hello","while loop")
+cnt <- 2
+while (cnt < 7) {
+   print(v)
+   cnt = cnt + 1
+}
+
+# The Repeat loop executes the same code again and again until a stop condition is met.
+# Syntax
+for (value in vector) {
+   statements
+}
+# Example
+v <- LETTERS[1:4]
+for ( i in v) {
+   print(i)
+}
+
+# When the break statement is encountered inside a loop, the loop is immediately terminated and program control resumes at the next statement following the loop.
+# On encountering next, the R parser skips further evaluation and starts next iteration of the loop.
+
+
+# An R function is created by using the keyword function. 
+# Syntax
+function_name <- function(arg_1, arg_2, ...) {
+   Function body 
+}
+# Example
+# Create a function to print squares of numbers in sequence.
+new.function <- function(a) {
+   for(i in 1:a) {
+      b <- i^2
+      print(b)
+   }
+}
+# Call the function new.function supplying 6 as an argument.
+new.function(6)
+
+Live Demo
+
+# Create a function with arguments.
+new.function <- function(a = 3, b = 6) {
+   result <- a * b
+   print(result)
+}
+# Call the function without giving any argument.
+new.function()
+# Call the function with giving new values of the argument.
+new.function(9,5)
+
+
+# Strings
+# Any value written within a pair of single quote or double quotes in R is treated as a string. 
+# Concatenate strings
+pastestr1, str2, str3, ... , sep = " ", collapse = NULL)
+
+# Formatting - Numbers and strings can be formatted to a specific style using format() function.
+# Syntax
+format(x, digits, nsmall, scientific, width, justify = c("left", "right", "centre", "none")) 
+# Example
+# Total number of digits displayed. Last digit rounded off.
+result <- format(23.123456789, digits = 9)
+print(result)
+# Display numbers in scientific notation.
+result <- format(c(6, 13.14521), scientific = TRUE)
+print(result)
+# The minimum number of digits to the right of the decimal point.
+result <- format(23.47, nsmall = 5)
+print(result)
+# Format treats everything as a string.
+result <- format(6)
+print(result)
+# Numbers are padded with blank in the beginning for width.
+result <- format(13.7, width = 6)
+print(result)
+# Left justify strings.
+result <- format("Hello", width = 8, justify = "l")
+print(result)
+# Justfy string with center.
+result <- format("Hello", width = 8, justify = "c")
+print(result)
+
+
+# Counting number of characters in a string - nchar() function
+nchar(test_str)
+
+# Changing the case - toupper() & tolower() functions
+# Extracting parts of a string - substring() function
+# Syntax
+substring(x,first,last)
+# Example - Extract characters from 5th to 7th position.
+result <- substring("Extract", 5, 7)
+print(result)
+
+
+# R - Vectors

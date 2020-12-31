@@ -296,3 +296,72 @@ print(result)
 
 
 # R - Vectors
+# Single Element Vector
+v <- "abc"
+
+# Multiple Elements Vector
+v <- 5:13
+v <- seq(5, 13, by = 1)
+
+# Using the c() function
+Live Demo
+
+# The logical and numeric values are converted to characters.
+v <- c('apple','red',5,TRUE)
+
+v <- c("Sun","Mon","Tue","Wed","Thu","Fri","Sat")
+print(v[c(2,3,6)])
+print(v[c(FALSE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE)])
+print(v[c(-1,-4,-5,-7)])
+
+# Vector Manipulation
+# Vector arithmetic - Two vectors of same length can be added, subtracted, multiplied or divided giving the result as a vector output.
+# If we apply arithmetic operations to two vectors of unequal length, then the elements of the shorter vector are recycled to complete the operations.
+v1 <- c(2,3,4,5,6,7)
+v2 <- c(1,2)
+# V2 becomes c(1,2,1,2,1,2)
+result = v1 + v2
+
+# Vector Element Sorting
+sort(v, decreasing = TRUE)
+
+
+# R - Lists
+# Lists are the R objects which contain elements of different types like − numbers, strings, vectors and another list inside it. A list can also contain a matrix or a function as its elements. List is created using list() function.
+# Creating a List
+list_data <- list("Red", c(21,32,11), TRUE, 51.23)
+# Give names to the elements in the list.
+names(list_data) <- c("color", "nested_list", "boolean_value", "decimal_number")
+# Accessing List Elements
+list_data[1] # "Red"
+list_data["color"] # Red
+list_data$color # Red
+# Access elements of a nested list
+l2 = list(c(1,2,3), c(4,5,6), nrows=2
+l2[[1]] # To access a nested list we use double square brackets to provide position of element: [[position]]
+l2[[2]][1] # 4
+
+# Manipulating List Elements
+# Add element at the end of the list.
+list_data[4] <- "New element"
+# Remove the last element.
+list_data[4] <- NULL
+# Update the 3rd Element.
+list_data[3] <- "updated element"
+
+# Merging Lists
+l1 = list(1,2,3)
+l2 = list(4,5,6)
+merged_list = c(l1, l2) 
+# print(merged_list[1]) # returns element 1
+merged_list_of_list = list(l1, l2) 
+# print(merged_list_of_list[1]) # returns l1
+# print(merged_list_of_list[[1]][1]) # returns element 1
+
+# Converting List to Vector using unlist() function.
+l1 <- list(1:3)
+l2 <-list(4:6)
+# l1 + l2 # shows an error because this is not  vector so arithmetic operations are not possible
+unlist(l1) + unlist(l2) # 5 7 9 
+
+

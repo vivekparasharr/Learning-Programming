@@ -207,7 +207,7 @@ while (cnt < 7) {
    cnt = cnt + 1
 }
 
-# The Repeat loop executes the same code again and again until a stop condition is met.
+# The for loop
 # Syntax
 for (value in vector) {
    statements
@@ -238,7 +238,6 @@ new.function <- function(a) {
 # Call the function new.function supplying 6 as an argument.
 new.function(6)
 
-Live Demo
 
 # Create a function with arguments.
 new.function <- function(a = 3, b = 6) {
@@ -287,6 +286,9 @@ print(result)
 nchar(test_str)
 
 # Changing the case - toupper() & tolower() functions
+str = 'apPlE'
+toupper(str) # APPLE
+tolower(str) # apple
 # Extracting parts of a string - substring() function
 # Syntax
 substring(x,first,last)
@@ -363,5 +365,155 @@ l1 <- list(1:3)
 l2 <-list(4:6)
 # l1 + l2 # shows an error because this is not  vector so arithmetic operations are not possible
 unlist(l1) + unlist(l2) # 5 7 9 
+
+
+#  R - Matrices
+# matrix(data, nrow, ncol, byrow, dimnames)
+M <- matrix(c(3:14), nrow = 4, byrow = TRUE)
+# Define the column and row names.
+rownames = c("row1", "row2", "row3", "row4")
+colnames = c("col1", "col2", "col3")
+P <- matrix(c(3:14), nrow = 4, byrow = TRUE, dimnames = list(rownames, colnames))
+
+# Accessing Elements of a Matrix
+print(P[4,2]) # Access the element at 2nd column and 4th row.
+print(P[2,]) # Access only the  2nd row.
+print(P[,3]) # Access only the 3rd column.
+
+# Matrix Computations
+# Create two 2x3 matrices.
+m1 <- matrix(c(3, 9, -1, 4, 2, 6), nrow = 2)
+m2 <- matrix(c(5, 2, 0, 9, 3, 4), nrow = 2)
+m1 + m2 # Add the matrices.
+m1 - m2 # Subtract the matrices
+m1 * m2 # Multiply the matrices.
+m1 / m2 # Divide the matrices
+
+
+# R - Arrays
+# An array is created using the array() function. It takes vectors as input and uses the values in the dim parameter to create an array.
+# For example − If we create an array of dimension (2, 3, 4) then it creates 4 rectangular matrices each with 2 rows and 3 columns.
+# dim=c(rows, columns, matrices)
+array2 = array(1:12, dim=c(2, 3, 2))
+# Naming Columns and Rows
+column.names <- c("COL1","COL2","COL3")
+row.names <- c("ROW1","ROW2")
+matrix.names <- c("Matrix1","Matrix2")
+array2 = array(1:12, dim=c(2, 3, 2), dimnames = list(row.names, column.names, matrix.names))
+
+# Accessing Array Elements
+# dim=c(rows, columns, matrices)
+print(array2[2,,2]) # Print the second row of the second matrix of the array.
+print(array2[1,3,1]) # Print the element in the 1st row and 3rd column of the 1st matrix.
+print(array2[,,2]) # Print the 2nd Matrix.
+# Since the returned values here are matrices, we can perform matrix operations on them
+# As array is made up matrices in multiple dimensions, the operations on elements of array are carried out by accessing elements of the matrices.
+
+# Calculations Across Array Elements
+# we can use user defined functions as well
+# summary
+# apply(X, MARGIN, FUN) - apply to r or c or both - input to this funciton is a df - output is a vector, list or array
+m1 <- matrix(C<-(1:10),nrow=5, ncol=2)
+apply(m1, 2, sum)
+# lapply(X, FUN) - apply to all elements - input to this function is list, vector or df - output is a list
+# sapply(X, FUN) - apply to all elements - input to this function is list, vector or df - output is a vector or a matrix
+movies <- c("BRAVEHEART","BATMAN","VERTIGO","GANDHI")
+lapply(movies, tolower)
+sapply(movies, tolower)
+# tapply(X, INDEX, FUN = NULL) - apply to each factor variable in a vector - input to this function is a vector - output it an array
+data(iris)
+tapply(iris$Sepal.Width, iris$Species, median)
+
+
+# R - Factors
+# Factors are the data objects which are used to categorize the data and store it as levels. They can store both strings and integers. They are useful in the columns which have a limited number of unique values. Like "Male, "Female" and True, False etc. They are useful in data analysis for statistical modeling. Factors are created using the factor () function by taking a vector as input.
+data <- c("East","West","East","North","North","East","West","West","West","East","North")
+print(data) # shows the vector
+factor_data <- factor(data, levels = c("East","West","North")) # Optional to specify a custom order for factor levels
+is.factor(factor_data)
+print(factor_data) # shows that there are three levels: East North West
+
+# Generating Factor Levels
+# gl(number_of_levels, number_of_replications, labels)
+# Example
+gl(3, 4, labels = c("India", "Chile","Canada"))
+
+# R - Data Frames
+# A data frame is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column.
+df <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Vivek","Harry","Tony","Bruce","Clark"),
+   salary = c(9500.0,6200.5,7400.5,8800.0,12000.25), 
+   start_date = as.Date(c("2011-02-01", "2012-10-15", "2013-08-25", "2016-06-21", "2018-02-28")),
+   stringsAsFactors = FALSE
+)
+print(df)
+
+str(df) # see structure of the data frame
+summary(df) # see statistical summary and nature of the data 
+
+# Extract Specific columns.
+result <- data.frame(df$emp_name,df$salary)
+# Extract first two rows.
+result <- df[1:2,]
+# Extract 3rd and 5th row with 2nd and 4th column.
+result <- df[c(3,5),c(2,4)]
+
+# Expand Data Frame
+# Add Column
+df$age <- c(30, 40, 50, 35, 45)
+# Add Row using rbind
+df3 <- rbind(df1,df2)
+
+
+# R - Packages
+install.packages("Package Name") # Install a New Package
+install.packages(file_name_with_path, repos = NULL, type = "source") # Install package manually
+library("package Name") # Load Package 
+library() # Get the list of all the packages installed
+search() # Get all packages currently loaded in the R environment
+
+
+# R - Data Reshaping
+# Joining Columns and Rows in a Data Frame
+# cbind() - join multiple vectors to create a data frame
+name = c('clark', 'harry', 'tony', 'bruce')
+age = c(10,20,30,40)
+height = c( 185, 170, 175, 180)
+students = data.frame(cbind(name, age, height))
+print(students)
+# rbind() - merge two data frames
+students_new = c('vivek', 30, 185)
+students = rbind(students, students_new)
+print(students)
+# Merging Data Frames - column names on which the merging happens should be the same
+df1 = data.frame(name=c('apple', 'orange', 'banana'), color=c('red', 'orange', 'yellow'), stringsAsFactors = FALSE)
+df2 = data.frame(name=c('apple', 'orange', 'banana'), weight=c(250, 230, 210), stringsAsFactors = FALSE)
+print(df1)
+print(df2)
+print(merge(x=df1, y=df2, by.x=c('name','name'), by.y=c('name','name')))
+# by default merge i ssame as inner join
+
+# Melting and Casting
+library(reshape2)
+df = data.frame(name=c('apple','orange','banana'), color=c('red','orange','yellow'), count=c(50,60,70), weight=c(250, 230, 210), stringsAsFactors = FALSE)
+# melt - converting columns into multiple  rows; basically wide to long format
+molten_df = melt(df, id=c('name','color')) # Any variables not specified will be melted
+# cast - converting multiple rows into columns; basically long to wide format
+dcast(molten_df, name+color~variable,sum) # dcast returns a dataframe, acast returns array or matrix
+
+
+
+# Reading a CSV File
+data <- read.csv("input.csv")
+# Writing into a CSV File
+write.csv(data,"output.csv") # optional - , row.names = FALSE
+# Reading the Excel File
+install.packages("xlsx")
+data <- read.xlsx("input.xlsx", sheetIndex = 1)
+# Reading the JSON File
+install.packages("rjson")
+result <- fromJSON(file = "input.json")
+json_data_frame <- as.data.frame(result)
 
 

@@ -16,6 +16,8 @@ print(b[3])
 # slicing - [start:stop:step]
 # slicing - [stop:start:-step] 
 # end (stop) is not inclusive
+a=[1,2,3,4,5,6,7,8,9]
+a[1:6:2]
 
 # reversing a list
 L[::-1]
@@ -65,4 +67,18 @@ mylist = ['value1','value2','value3',...]
 mylist = [int(i) for i in mylist]
 
 
+# matrics
+import numpy as np # we need to import the numpy libabry which provides tools for numerical computing. 
+m=np.array([[1,2,3],[4,5,6],[7,8,9]])
+print(m)
+
+# Arrays - while matrices are confined to two dimensions, arrays can be of any number of dimensions. 
+import numpy as np # we need to import the numpy libabry which provides tools for numerical computing. 
+m=np.array([1,2,3])
+print(type(m))
+
+# Matrices - A matrix is a two-dimensional rectangular data set. It can be created using .array() function.
+import numpy as np # we need to import the numpy libabry which provides tools for numerical computing. 
+m=np.array([[1,2,3],[4,5,6],[7,8,9]])
+print(type(m))
 

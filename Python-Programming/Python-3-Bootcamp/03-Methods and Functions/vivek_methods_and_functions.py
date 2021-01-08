@@ -87,7 +87,7 @@ def unpack_tuple (work_hours):
 
 # *args lets a function take an arbitrary number of arguments
 # all arguments are received as a tuple, example - (a,b,c,..)
-# wargs can be renamed to something else, what really matters is *
+# args can be renamed to something else, what really matters is *
 
 def myfunc(*args):
     return args

@@ -5,6 +5,20 @@ Created on Sun Oct 18 19:36:16 2020
 @author: vivek
 """
 
+# creating pandas dataframe
+import pandas as pd
+# From dict
+pd.DataFrame({'col_1': [3, 2, 1, 0], 'col_2': ['a', 'b', 'c', 'd']})
+# from list
+pd.DataFrame(['orange', 'mango', 'grapes', 'apple'], index=['a', 'b', 'c', 'd'], columns =['Fruits'])
+# from list of lists
+pd.DataFrame([['orange','tomato'],['mango','potato'],['grapes','onion'],['apple','chilly']], index=['a', 'b', 'c', 'd'], columns =['Fruits', 'Vegetables'])
+# from multiple lists
+pd.DataFrame(
+        list(zip(['orange', 'mango', 'grapes', 'apple'],
+                ['tomato', 'potato', 'onion', 'chilly']))
+        , index=['a', 'b', 'c', 'd']
+        , columns =['Fruits', 'Vegetables'])
 
 #################################################################################
 ################################### summary #####################################

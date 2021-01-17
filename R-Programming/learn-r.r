@@ -517,3 +517,11 @@ result <- fromJSON(file = "input.json")
 json_data_frame <- as.data.frame(result)
 
 
+# classes
+# We will cover s4 classes here. S4 class is defined by the setClass() method. 
+setClass("emp_info", slots=list(name="character", age="numeric", contact="character"))
+emp1 <- new("emp_info",name="vivek", age=30, contact="somehwere on the internet")
+
+# Access elements of a class
+emp1@name
+

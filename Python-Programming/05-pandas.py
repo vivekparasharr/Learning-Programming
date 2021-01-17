@@ -76,6 +76,9 @@ len(df.columns)
 df.drop('another_col',axis=1) # drop col another_col
 df.drop(2, axis=0) # drop row 2
 
+# isin
+df[df.country.isin(['CN','IN'])] # rows where country in ('CN','IN') returned
+df[~df.country.isin(['CN','IN'])] # rows where country not in ('CN','IN') returned
 
 #Add a column to df
 df['new_col'] = res

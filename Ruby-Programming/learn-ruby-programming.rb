@@ -129,7 +129,7 @@ class Customer
        @cust_name = name
        @cust_addr = addr
     end
- end
+end
 # Now, you can create objects as follows −
 cust1 = Customer.new("1", "Vivek", "Somewhere on the, Internet")
 

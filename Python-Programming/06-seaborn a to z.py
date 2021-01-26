@@ -5,6 +5,12 @@ Created on Sun Oct 18 21:29:50 2020
 @author: vivek
 """
 
+import seaborn as sns
+sns.get_dataset_names()
+tips = sns.load_dataset("tips")
+tips.plot(x='total_bill', y='tip', kind='scatter')
+
+
 # adjust location of legend on a plot
 legend='best'
 
@@ -127,4 +133,7 @@ plt.legend(frameon=True, fancybox=True, shadow=True, \
     framealpha=1, prop={'size':20}) # prop used to change text size of legend
 # framealpha for transparency
 plt.show()
+
+
+
 

@@ -12,7 +12,11 @@ sns.set_theme() # more on https://seaborn.pydata.org/tutorial/aesthetics.html
 # There’s nothing special about these datasets: they are just pandas dataframes, and we could have loaded them with pandas.read_csv() or built them by hand 
 
 
-
+# Seaborn example datasets
+import seaborn as sns
+sns.get_dataset_names()
+tips = sns.load_dataset("tips")
+tips.plot(x='total_bill', y='tip', kind='scatter')
 
 
 

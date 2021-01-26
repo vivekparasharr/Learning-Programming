@@ -155,5 +155,129 @@ DataFrame.boxplot([column, by, ax, …])
 DataFrame.hist([column, by, grid, …])
 
 
+########################################################################
+####################### visualization tutorial #########################
+########################################################################
+
+import seaborn as sns
+tips = sns.load_dataset("tips") # tips dataset can be loaded from seaborn
+sns.get_dataset_names() # to get a list of other available datasets
+
+import plotly.express as px
+tips = px.data.tips() # tips dataset can be loaded from plotly
+# data_canada = px.data.gapminder().query("country == 'Canada'")
+
+import pandas as pd
+tips.to_csv('/Users/vivekparashar/Downloads/tips.csv')
+
+import altair as alt
+
+import statsmodels.api as sm
+
+# Dot plot shows changes between two (or more) points in time or between two (or more) conditions.
+t = tips.groupby(['day','sex']).mean()[['total_bill']].reset_index()
+px.scatter(t, x='day', y='total_bill', color='sex', 
+        title='Average bill by gender by day', 
+        labels={'day':'Day of the week', 'total_bill':'Average Bill in $'})
+
+# Bar (vertical and horizontal)
+tips.groupby('sex').mean()['total_bill'].plot(kind='bar') # using pandas plot
+tips.groupby('sex').mean()['tip'].plot(kind='barh')
+
+t = tips.groupby(['day','sex']).mean()[['total_bill']].reset_index()
+px.bar(t, x='day', y='total_bill') # Using plotly
+px.bar(t, x='total_bill', y="day", orientation='h')
+
+# Stacked Bar - need to unstack one of the levels and fill na values
+tips.groupby(['day','sex']).mean()[['total_bill']]\
+        .unstack('sex').fillna(0)\
+        .plot(kind='bar', stacked=True) # using pandas plot; kind='barh' for horizontal plot 
+
+t = tips.groupby(['day','sex']).mean()[['total_bill']].reset_index()
+px.bar(t, x="day", y="total_bill", color="sex", title="Average bill by Gender and Day") # vertical 
+px.bar(t, x="total_bill", y="day", color="sex", title="Average bill by Gender and Day", orientation='h') # horizontal
+
+# Boxplot (vertical and horizontal)
+# we specify y=variable for vertical and x=variable for horizontal for horizontal box plot respectively
+tips[['total_bill']].plot(kind='box') # using pandas plot
+px.box(tips, y='total_bill') # using plotly
+sns.boxplot(y=tips["total_bill"]) # using seaborn
+
+# options for the boxplot in statsmodels include violin_plot and bean_plot
+# Violin plot
+sns.violinplot(y=tips.total_bill)
+sns.violinplot(data=tips, x='day', y='total_bill', 
+        hue='smoker', 
+        palette='muted', split=True,
+        scale='count', inner='quartile',
+        order=['Thur','Fri','Sat','Sun'])
+
+sns.catplot(x='sex', y='total_bill',
+        hue='smoker', col='time',
+        data=tips, kind='violin', split=True,
+        height=4, aspect=.7)
+
+
+# Histogram
+tips.total_bill.plot(kind='hist') # using pandas plot
+px.histogram(tips, x="total_bill") # using plotly
+sns.histplot(data=tips, x="total_bill") # using seaborn
+alt.Chart(tips).mark_bar().encode(alt.X('total_bill:Q', bin=True),y='count()') # using altair
+
+# Probability Plot is a way of visually comparing the data coming from different distributions.
+# Can be of two types - pp plot or qq plot
+# pp plot - (Probability-to-Probability) plot is the way to visualize the comparing of cumulative distribution function (CDFs) of the two distributions (empirical and theoretical) against each other.
+# qq plot - (Quantile-to-Quantile) plot is used to compare the quantiles of two distributions. The quantiles can be defined as continuous intervals with equal probabilities or dividing the samples between a similar way The distributions may be theoretical or sample distributions from a process, etc. 
+# Normal probability plot is a case of the qq plot. It is a way of knowing whether the dataset is normally distributed or not
+import statsmodels.graphics.gofplots as sm 
+import numpy as np
+sm.ProbPlot(np.array(tips.total_bill)).ppplot(line='s') # using statsmodels
+sm.ProbPlot(np.array(tips.total_bill)).qqplot(line='s') # using statsmodels
+
+# Scatter
+px.scatter(tips, x='total_bill', y='tip', color='sex', size='size', hover_data=['day']) # using plotly
+tips.plot(x='total_bill', y='tip', kind='scatter') # using pandas plot
+
+# Needle
+
+
+# Reg
+sns.regplot(x="total_bill", y="tip", data=tips, marker='+') # using seaborn
+sns.regplot(x="size", y="total_bill", data=tips, x_jitter=.1) # for categorical variables we can add jitter to see overlapping points
+
+# Line
+tips['total_bill'].plot(kind='line') # using pandas plot
+
+px.line(tips, y='total_bill', title='Total bill') # using plotly
+
+t = tips.groupby('day').sum()[['total_bill']].reset_index()
+px.line(t, x='day',y='total_bill', title='Total bill by day')
+
+alt.Chart(t).mark_line().encode(x='day', y='total_bill') # using altair
+
+sns.lineplot(data=t, x='day', y='total_bill') # using seaborn
+
+# Area
+tips.groupby('day').sum()[['total_bill']].plot(kind='area') # using pandas plot
+
+t = tips.groupby(['day','sex']).count()[['total_bill']].reset_index()
+t_pivoted = t.pivot(index='day', columns='sex', values='total_bill')
+t_pivoted.plot.area() # stacked area can be done using pandas.plot as well
+
+px.area(t, x='day', y='total_bill', color='sex',line_group='sex') # using plotly
+
+alt.Chart(t).mark_area().encode(x='day', y='total_bill') # using altair
+
+# Pie
+tips.groupby('sex').count()['tip'].plot(kind='pie') # using pandas plot
+
+px.pie(df, values='tip', names='day') # using plotly
+
+# Sunburst - visualize hierarchical data spanning outwards radially from root to leaves
+px.sunburst(tips, path=['sex', 'day', 'time'], values='total_bill', color='day')
+
+# Radar
+t = tips.groupby('day').mean()[['total_bill']].reset_index()
+px.line_polar(t, r='total_bill', theta='day', line_close=True) # using plotly
 
 

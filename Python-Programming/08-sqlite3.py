@@ -7,14 +7,14 @@ df = pd.DataFrame({'Brand': ['Honda Civic','Toyota Corolla','Ford Focus','Audi A
 
 # Step 2: Create a Database
 import sqlite3
-conn = sqlite3.connect('TestDB1.db')
+conn = sqlite3.connect('/Users/vivekparashar/Desktop/TestDB1.db')
 c = conn.cursor()
 
 # create the 'CARS' table
 c.execute('CREATE TABLE CARS (Brand text, Price number)')
 conn.commit()
 
-# Step 3: Get from Pandas DataFrame to SQL
+# Step 3: Save from Pandas DataFrame to SQL
 df.to_sql('CARS', conn, if_exists='replace', index = False)
 
 # Access data from SQL database to see if it worked
@@ -25,7 +25,7 @@ SELECT * FROM CARS
 for row in c.fetchall():
     print (row)
 
-# Save data into a dataframe
+# Pull  data into a dataframe
 c.execute('''  
 SELECT * FROM CARS
           ''')

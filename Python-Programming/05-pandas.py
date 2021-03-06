@@ -194,6 +194,16 @@ df.apply(np.sum, axis=1) # to rows
 
 .shift() Series method
 
+#################################################################################
+################################ crosstab #######################################
+#################################################################################
+
+df = pd.DataFrame({'Gender' : ['M', 'M', 'M', 'F', 'F'] * 10,
+                   'Smoker' : ['Y', 'Y', 'N', 'N', 'Y'] * 10 })
+# To run the Chi-Square Test, the easiest way is to convert the data into a 
+# contingency table with frequencies. We will use the crosstab command from pandas.
+contigency = pd.crosstab(df.Gender, df.Smoker) 
+contigency_pct = pd.crosstab(df.Gender, df.Smoker, normalize='index') # If we want the percentages by column, then we should write normalize=’column’ and if we want the total percentage then we should write normalize=’all’
 
 #################################################################################
 #################################### pivot ######################################

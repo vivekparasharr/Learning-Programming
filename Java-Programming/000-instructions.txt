@@ -1,0 +1,2 @@
+To run, go to Run -> Start Debugging
+or Run -> Run Without Debugging

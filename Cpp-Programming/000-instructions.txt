@@ -1,0 +1,5 @@
+For C code
+Terminal -> Run Build Task -> choose gcc.exe
+
+For C++ code
+Terminal -> Run Build Task -> choose g++.exe
